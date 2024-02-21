@@ -13,9 +13,9 @@ const App = () => {
         headerStyle: {
           backgroundColor: 'rgb(142 142 142)',
         },
-        headerTintColor: 'white', // Change text color of header buttons
+        headerTintColor: 'white', 
         headerTitleStyle: {
-          fontWeight: 'bold', // Customize header title style   
+          fontWeight: 'bold', 
         },
       }}>
         <Stack.Screen name="Contacts List" component={ContactsScreen} />

@@ -4,16 +4,16 @@ import * as Contacts from 'expo-contacts';
 
 import ContactPreview from '../components/ContactPreview';
 
-// const DummyData = [{
-//   name: 'vlad',
-//   id: 'jhkb223'
-// }, {
-//   name: 'danny',
-//   id: 'sad231'
-// }, {
-//   name: 'jhonny',
-//   id: 'erwrw233'
-// }]
+const DummyData = [{
+  name: 'vlad',
+  id: 'jhkb223'
+}, {
+  name: 'danny',
+  id: 'sad231'
+}, {
+  name: 'jhonny',
+  id: 'erwrw233'
+}]
 
 const ContactsScreen = () => {
   const [contacts, setContacts] = useState([]);

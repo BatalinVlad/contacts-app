@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 
 const ContactPreview = (props) => {
-    return <TouchableOpacity onPress={props.handlePress} style={styles.contact}>
+    return <Pressable onPress={props.handlePress} style={styles.contact}>
         <View style={styles.contactContainer}>
             <Image
-                source={{ uri: 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png' }}
+                source={require('../assets/profileicon.png')}
                 style={{ width: 30, height: 30 ,borderRadius:50 }}
             />
             {props.contact.name && <Text style={styles.contactText}> {props.contact.name} </Text>}
         </View>
-    </TouchableOpacity>
+    </Pressable>
 }
 export default ContactPreview
 
