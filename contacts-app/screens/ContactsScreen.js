@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as Contacts from 'expo-contacts';
-
 import ContactPreview from '../components/ContactPreview';
+import { Inputs, Base } from '../styles';
 
 // const DummyData = [{
-//   name: 'vlad',
+//   firstName: 'vlad',
 //   id: 'jhkb223'
 // }, {
-//   name: 'danny',
+//   firstName: 'danny',
 //   id: 'sad231'
 // }, {
-//   name: 'jhonny',
+//   firstName: 'jhonny',
 //   id: 'erwrw233'
 // }]
 
@@ -19,24 +20,24 @@ const ContactsScreen = () => {
   const [contacts, setContacts] = useState([]);
   const [filtredContacts, setFiltredContacts] = useState([]);
   const [filterByContactName, setFilterByContactName] = useState('');
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
       const { status } = await Contacts.requestPermissionsAsync();
       if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.Emails, Contacts.Fields.Name],
-        });
+        const { data } = await Contacts.getContactsAsync({});
         if (data.length > 0) {
-          setContacts(data)
+          const sortedData = data.sort((a,b) => a.name > b.name)
+          setContacts(sortedData)
         }
       }
     })();
     // setContacts(DummyData)
   }, []);
 
-  const handlePress = () => {
-    console.log('contact touched');
+  const handleOpenProfile = (contactData) => {
+    navigation.navigate('Contact Profile', { contactData });
   }
 
   const onChangeText = (inputText) => {
@@ -46,16 +47,16 @@ const ContactsScreen = () => {
 
   const filterContactsByName = (val) => {
     const filtredContact = contacts.filter((contact) => {
-      if(contact.name) return contact.name.includes(val)
+      if (contact.name) return contact.name.includes(val)
     })
     setFiltredContacts(filtredContact);
   }
 
   return (
     <View style={styles.appScreen}>
-      <View style={styles.filterContainer}>
+      <View>
         <TextInput
-          style={styles.inputStyle }
+          style={styles.inputText}
           value={filterByContactName}
           onChangeText={onChangeText}
           placeholder="find.."
@@ -65,11 +66,11 @@ const ContactsScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         {filtredContacts.length !== 0 && contacts ?
           filtredContacts.map((contact) => {
-            return <ContactPreview key={contact.id} contact={contact} handlePress={handlePress} />
+            return <ContactPreview key={contact.id} contact={contact} handleOpenProfile={handleOpenProfile} />
           })
           :
           contacts.map((contact) => {
-            return <ContactPreview key={contact.id} contact={contact} handlePress={handlePress} />
+            return <ContactPreview key={contact.id} contact={contact} handleOpenProfile={handleOpenProfile} />
           })
         }
       </ScrollView>
@@ -78,32 +79,16 @@ const ContactsScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  appScreen:{
-    backgroundColor: 'rgb(142 142 142)',
-    flex:'1'
+  appScreen: {
+    ...Base.appScreen
   },
-  filterContainer: {
-    backgroundColor: 'rgb(142 142 142)',
-    fontSize: 50,
-    fontWeight: 600,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
+  inputText: {
+    ...Inputs.inputText
   },
   scrollView: {
-    flexGrow: 1,
+    ...Base.scrollView
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputStyle: {
-    color: 'white',
-    padding: 5,
-    fontSize: 15,
-    textAlign:'center'
-  }
-});
+})
+
 
 export default ContactsScreen
