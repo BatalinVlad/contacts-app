@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput, Image } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import ContactsList from '../components/ContactsList';
 import { Feather } from '@expo/vector-icons';
