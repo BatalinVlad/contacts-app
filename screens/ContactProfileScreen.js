@@ -15,8 +15,9 @@ const ContactProfileScreen = () => {
     setcontact(contactData)
   }, [])
 
-  const callNumber = (phoneNumber) => {
-    Linking.openURL(`tel:${phoneNumber}`)
+  const callNumber = () => {
+    if (!contact.phoneNumbers) return
+    Linking.openURL(`tel:${contact.phoneNumbers[0].number}`)
   }
 
   const handleSendSMS = async () => {
@@ -74,7 +75,7 @@ const ContactProfileScreen = () => {
               <Text style={styles.actionButtonsText}>sms</Text>
             </Pressable>
             <Pressable
-              onPress={handleSendSMS}
+              onPress={callNumber}
               style={styles.actionButtons}>
               <Feather name="phone-call" size={24} color="white" />
               <Text style={styles.actionButtonsText}>call</Text>
