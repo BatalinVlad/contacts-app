@@ -1,43 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, TextInput, Image } from 'react-native';
 import * as Contacts from 'expo-contacts';
-
-import ContactPreview from '../components/ContactPreview';
-
-const DummyData = [{
-  name: 'vlad',
-  id: 'jhkb223'
-}, {
-  name: 'danny',
-  id: 'sad231'
-}, {
-  name: 'jhonny',
-  id: 'erwrw233'
-}]
+import ContactsList from '../components/ContactsList';
+import { Feather } from '@expo/vector-icons';
+import { Inputs, Base } from '../styles';
 
 const ContactsScreen = () => {
   const [contacts, setContacts] = useState([]);
-  const [filtredContacts, setFiltredContacts] = useState([]);
+  const [filtredContacts, setFilteredContacts] = useState([]);
   const [filterByContactName, setFilterByContactName] = useState('');
+  const [filterMode, setFilterMode] = useState(false)
 
   useEffect(() => {
-    (async () => {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.Emails, Contacts.Fields.Name],
-        });
-        if (data.length > 0) {
-          setContacts(data)
-        }
-      }
-    })();
-    // setContacts(DummyData)
+    setData()
   }, []);
 
-  const handlePress = () => {
-    console.log('contact touched');
-  }
+  const setData = async () => {
+    try {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status !== 'granted') {
+        throw new Error('Permission not granted');
+      }
+
+      const { data } = await Contacts.getContactsAsync({});
+      if (data.length === 0) {
+        throw new Error('No contacts found');
+      }
+
+      const sortedContactsData = data.sort((a, b) => {
+        if (a.firstName && b.firstName) {
+          return a.firstName.localeCompare(b.firstName);
+        }
+        return 0;
+      });
+
+      const clearedAndSortedData = clearContactsData(sortedContactsData)
+
+      setContacts(clearedAndSortedData);
+
+    } catch (error) {
+      console.error('Error setting data:', error);
+    }
+  };
+
+  const clearContactsData = (contacts) => {
+    let unclearedContactsData = [];
+    let clearedContactsData = [];
+
+    const regex = /^\p{Script=Hebrew}/u; // Regular expression to match a Hebrew letter at the beginning of the string
+
+    for (const contact of contacts) {
+      if (regex.test(contact.name)) {
+        unclearedContactsData.push(contact);
+      } else if (regex.test(contact.firstName)) {
+        unclearedContactsData.push(contact);
+      } else if (regex.test(contact.lastName)) {
+        unclearedContactsData.push(contact);
+      } else {
+        clearedContactsData.push(contact);
+      }
+    }
+
+    return [...unclearedContactsData, ...clearedContactsData];
+  };
 
   const onChangeText = (inputText) => {
     setFilterByContactName(inputText);
@@ -45,65 +70,54 @@ const ContactsScreen = () => {
   };
 
   const filterContactsByName = (val) => {
-    const filtredContact = contacts.filter((contact) => {
-      if(contact.name) return contact.name.includes(val)
-    })
-    setFiltredContacts(filtredContact);
+    if (val.length === 0) {
+      setFilterMode(false)
+    } else if (val.length > 0) {
+      setFilterMode(true)
+      const filteredContacts = contacts.filter((contact) => {
+        if (contact.name && val) {
+          return contact.name.toLowerCase().includes(val.toLowerCase());
+        }
+        return false;
+      });
+      setFilteredContacts(filteredContacts);
+    }
   }
 
   return (
     <View style={styles.appScreen}>
-      <View style={styles.filterContainer}>
-        <TextInput
-          style={styles.inputStyle }
-          value={filterByContactName}
-          onChangeText={onChangeText}
-          placeholder="find.."
-          placeholderTextColor="white"
-        />
+      <View>
+        <View style={styles.inputTextContainer}>
+          <Feather name="search" size={30} color="black" style={styles.searchIcon} />
+          <TextInput
+            style={styles.inputText}
+            value={filterByContactName}
+            onChangeText={onChangeText}
+            placeholder=" find . . ."
+            placeholderTextColor="black"
+          />
+        </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-        {filtredContacts.length !== 0 && contacts ?
-          filtredContacts.map((contact) => {
-            return <ContactPreview key={contact.id} contact={contact} handlePress={handlePress} />
-          })
-          :
-          contacts.map((contact) => {
-            return <ContactPreview key={contact.id} contact={contact} handlePress={handlePress} />
-          })
-        }
-      </ScrollView>
+      {filtredContacts.length !== 0 && filterMode && <ContactsList contacts={filtredContacts} />}
+      {contacts.length !== 0 && !filterMode && <ContactsList contacts={contacts} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  appScreen:{
-    backgroundColor: 'rgb(142 142 142)',
-    flex:'1'
+  appScreen: {
+    ...Base.appScreen
   },
-  filterContainer: {
-    backgroundColor: 'rgb(142 142 142)',
-    fontSize: 50,
-    fontWeight: 600,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
+  inputTextContainer: {
+    ...Inputs.inputTextContainer
   },
-  scrollView: {
-    flexGrow: 1,
+  inputText: {
+    ...Inputs.inputText
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  searchIcon: {
+    opacity: 0.4
   },
-  inputStyle: {
-    color: 'white',
-    padding: 5,
-    fontSize: 15,
-    textAlign:'center'
-  }
-});
+})
+
 
 export default ContactsScreen
