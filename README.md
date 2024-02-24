@@ -15,8 +15,8 @@ To install the dependencies, run:
 ## Screenshots
 
 Include screenshots of your app to give users a visual preview:
-![Screenshot 1](/assets/screenshot1.jpeg)
-![Screenshot 2](/assets/screenshot2.jpeg)
+<img src="/assets/screenshot1.jpeg" alt="Screenshot 1" width="300">
+<img src="/assets/screenshot2.jpeg" alt="Screenshot 2" width="300">
 
 ## Usage
 
