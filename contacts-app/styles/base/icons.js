@@ -17,25 +17,24 @@ export const profileIconByName = {
 };
 
 export const profileIconText = {
-  fontSize: 25,
   fontWeight: 'bold',
   color: 'white',
 };
 
 export const profileIconContainer = {
-  height: '50%',
+  height: '70%',
   width: '100%',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   alignItems: 'center',
   backgroundColor: Colors.icons,
 };
 
 export const profileIconWrapper = {
   backgroundColor: Colors.bg_primary,
-  height: '70%',
-  width: '70%',
-  marginBottom: 50,
+  height: 250,
+  width: 250,
+  marginBottom: 30,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

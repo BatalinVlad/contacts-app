@@ -1,13 +1,18 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ContactsScreen from '../screens/ContactsScreen';
-import ContactProfileScreen from '../screens/ContactProfileScreen';
-import { Colors } from '../styles';
+import ContactsScreen from '../../screens/ContactsScreen';
+import ContactProfileScreen from '../../screens/ContactProfileScreen';
+import { Colors } from '../../styles';
+import BackButton from './BackButton';
 
 
 const NavBar = () => {
     const Stack = createStackNavigator();
+
+    const renderHeaderBackButton = () => {
+        return <BackButton />
+    }
 
     return <NavigationContainer>
         <Stack.Navigator>
@@ -42,6 +47,7 @@ const NavBar = () => {
                         fontWeight: 'bold',
                     },
                     headerBackTitleVisible: false,
+                    headerLeft: () => renderHeaderBackButton(),
                 }}
             />
         </Stack.Navigator>
