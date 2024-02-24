@@ -1,12 +1,22 @@
 import * as Colors from './colors'
 
 export const inputText = {
-    backgroundColor: Colors.bg_primary,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 600,
-    paddingHorizontal: 10,
     paddingVertical: 15,
-    textAlign: 'center',
     opacity: 0.5,
-    color: Colors.secandery_color
+    color: Colors.bg_primary,
+    textAlign:'left',
+    borderRadius: 10,
+    width: '100%'
+}
+
+export const inputTextContainer = {
+    backgroundColor: Colors.inputs,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    paddingHorizontal: 20,
+    borderRadius: 10
 }
