@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import ContactsList from '../components/ContactsList';
+import LoadingSpinner from '../components/ui/LoadingSpinner'
 import { Base } from '../styles';
 import FilterNav from '../components/FilterNav';
 
 const ContactsScreen = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filtredContacts, setFilteredContacts] = useState([]);
+  const [contacts, setContacts] = useState();
+  const [filtredContacts, setFilteredContacts] = useState();
   const [filterByContactsNameValue, setFilterByContactsNameValue] = useState('');
   const [filterMode, setFilterMode] = useState(false)
 
   useEffect(() => {
-    setData()
+    setData();
   }, []);
+
 
   const setData = async () => {
     try {
@@ -85,11 +87,12 @@ const ContactsScreen = () => {
 
     <View style={styles.appScreen}>
       <ImageBackground
-        source={{ uri: ('https://img.freepik.com/premium-vector/soft-gray-white-wave-background-design_41084-352.jpg') }}
-        style={{flex: 1}}
+        source={{ uri: ('https://res.cloudinary.com/dzeycmkct/image/upload/v1708801483/soft-gray-white-wave-background-design_41084-352_vbd5xf.jpg') }}
+        style={{ flex: 1 }}
       >
-      <FilterNav onChangeText={onChangeTextHandler} filterContactsByNameValue={filterByContactsNameValue} />
-        {filtredContacts  && filterMode && <ContactsList contacts={filtredContacts} />}
+        <FilterNav onChangeText={onChangeTextHandler} filterContactsByNameValue={filterByContactsNameValue} />
+        {!filtredContacts && !contacts && <LoadingSpinner size="large" />}
+        {filtredContacts && filterMode && <ContactsList contacts={filtredContacts} />}
         {contacts && !filterMode && <ContactsList contacts={contacts} />}
       </ImageBackground>
     </View >

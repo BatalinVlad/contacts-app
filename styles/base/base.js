@@ -1,7 +1,5 @@
-import * as Colors from './colors'
 
 export const appScreen = {
-   
     flex: 1
 };
 

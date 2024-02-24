@@ -14,8 +14,10 @@ To install the dependencies, run:
 
 ## Screenshots
 
-<img src="/assets/screenshot1.jpeg" alt="Screenshot 1" width="300">
-<img src="/assets/screenshot2.jpeg" alt="Screenshot 2" width="300">
+<img src="/assets/screenshot1.jpeg" alt="Screenshot 1" width="200">
+<img src="/assets/screenshot2.jpeg" alt="Screenshot 2" width="200" >
+<img src="/assets/screenshot3.jpeg" alt="Screenshot 2" width="200">
+
 
 ## Usage
 

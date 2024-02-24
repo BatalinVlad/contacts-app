@@ -12,7 +12,7 @@ const ContactsList = ({ contacts }) => {
     return (
       <View style={styles.noContactsFoundContainer}>
         <Image
-          source={{ uri: ('https://cdn-icons-png.flaticon.com/512/6134/6134065.png') }}
+          source={{ uri: ('https://res.cloudinary.com/dzeycmkct/image/upload/v1708801376/6134065_nea8og.png') }}
           style={{ height: 100, width: 100 , marginBottom: 20}}
         ></Image>
         <Text style={{fontSize:20}}>

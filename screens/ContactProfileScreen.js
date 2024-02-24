@@ -32,7 +32,7 @@ const ContactProfileScreen = () => {
   };
 
   return (
-    <ImageBackground source={{ uri: ('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700346402.jpg') }}
+    <ImageBackground source={{ uri: ('https://res.cloudinary.com/dzeycmkct/image/upload/v1708801398/High_resolution_wallpaper_background_ID_77700346402_h3n46o.jpg') }}
       style={styles.profileScreen}
     >
       <View style={{ flex: 1 }}>
