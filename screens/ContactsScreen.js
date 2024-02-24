@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput ,ActivityIndicator } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import ContactsList from '../components/ContactsList';
 import { Feather } from '@expo/vector-icons';
 import { Inputs, Base } from '../styles';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const ContactsScreen = () => {
   const [contacts, setContacts] = useState([]);
@@ -98,6 +99,8 @@ const ContactsScreen = () => {
           />
         </View>
       </View>
+      {!contacts && !filtredContacts &&  <LoadingSpinner size={'Large'}/>}
+
       {filtredContacts.length !== 0 && filterMode && <ContactsList contacts={filtredContacts} />}
       {contacts.length !== 0 && !filterMode && <ContactsList contacts={contacts} />}
     </View>
