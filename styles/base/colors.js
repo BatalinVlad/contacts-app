@@ -1,10 +1,12 @@
+export const appColor ='transparent' 
+
 export const primary_color = '#1c1c1e'
 export const secandery_color = '#f7f9fa'
 
 export const bg_primary = '#e6e6e6'
 export const bg_secondary = '#1c1c1e'
 
-export const navbar = 'rgb(223 223 223)'
+export const navbar = 'white'
 
 export const icons = '#a2a8b5'
 export const inputs = 'rgb(223 223 223)'

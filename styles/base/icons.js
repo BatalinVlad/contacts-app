@@ -17,12 +17,13 @@ export const profileIconByName = {
 };
 
 export const profileIconText = {
+  fontSize: 25,
   fontWeight: 'bold',
   color: 'white',
 };
 
 export const profileIconContainer = {
-  height: '70%',
+  height: '65%',
   width: '100%',
   display: 'flex',
   justifyContent: 'flex-end',
@@ -45,7 +46,7 @@ export const profileIcon = {
   fontSize: 150,
   marginBottom: 10,
   fontWeight: 'bold',
-  color: Colors.secandery_color, // Ensure consistent color usage
+  color: Colors.secandery_color, 
 };
 
 export const profileIconImage = {

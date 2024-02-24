@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, Linking, Pressable } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { ImageBackground, Image, View, Text, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import * as SMS from 'expo-sms';
-
-import { Colors, Icons } from '../styles';
+import { Colors, Icons, ContactProfileScreenStyle } from '../styles';
+import ActionsButtons from '../components/ActionsButtons';
 
 const ContactProfileScreen = () => {
   const route = useRoute();
@@ -14,24 +12,6 @@ const ContactProfileScreen = () => {
     const { contactData } = route.params;
     setcontact(contactData)
   }, [])
-
-  const callNumber = () => {
-    if (!contact.phoneNumbers) return
-    Linking.openURL(`tel:${contact.phoneNumbers[0].number}`)
-  }
-
-  const handleSendSMS = async () => {
-    if (!contact.phoneNumbers) return
-    const recipients = [contact.phoneNumbers[0].number]; // Replace with the recipient's phone number
-    const message = ''; // Your message here
-
-    try {
-      const { result } = await SMS.sendSMSAsync(recipients, message);
-      console.log(result);
-    } catch (error) {
-      console.error('Error sending SMS:', error);
-    }
-  };
 
   const renderProfileIcon = () => {
     if (contact && contact.imageAvailable) {
@@ -52,7 +32,9 @@ const ContactProfileScreen = () => {
   };
 
   return (
-    <View style={styles.profileScreen}>
+    <ImageBackground source={{ uri: ('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700346402.jpg') }}
+      style={styles.profileScreen}
+    >
       <View style={{ flex: 1 }}>
         <View style={styles.profileIconContainer}>
           <View style={styles.profileIconWrapper}>
@@ -66,23 +48,8 @@ const ContactProfileScreen = () => {
               {contact && contact.firstName}
             </Text>
           </View>
-
-          <View style={styles.actionButtonsContainer}>
-            <Pressable
-              onPress={handleSendSMS}
-              style={styles.actionButtons}>
-              <Feather name="message-circle" size={24} color="white" />
-              <Text style={styles.actionButtonsText}>sms</Text>
-            </Pressable>
-            <Pressable
-              onPress={callNumber}
-              style={styles.actionButtons}>
-              <Feather name="phone-call" size={24} color="white" />
-              <Text style={styles.actionButtonsText}>call</Text>
-            </Pressable>
-          </View>
+          <ActionsButtons contact={contact} />
         </View>
-
         <View styles={styles.contactDataPhonesContainer}>
           {contact && contact.phoneNumbers && contact.phoneNumbers.map((phoneNumber, idx) => (
             <View key={idx} style={[styles.contactDataPhonesContainer, { justifyContent: 'flex-end' }]}>
@@ -92,18 +59,13 @@ const ContactProfileScreen = () => {
           ))}
         </View>
       </View>
-
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   profileScreen: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: Colors.bg_secondary,
+    ...ContactProfileScreenStyle.profileScreen
   },
   profileIconContainer: {
     ...Icons.profileIconContainer
@@ -117,29 +79,7 @@ const styles = StyleSheet.create({
   profileIconImage: {
     ...Icons.profileIconImage
   },
-  actionButtonsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'center',
-    paddingBottom: 10
-  },
-  actionButtons: {
-    backgroundColor: Colors.pressable,
-    width: 90,
-    height: 70,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    margin: 5,
-  },
-  actionButtonsText: {
-    marginTop: 3,
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 16
-  },
+
   contactDataContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -172,7 +112,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'right'
   }
-
 });
 
 export default ContactProfileScreen;

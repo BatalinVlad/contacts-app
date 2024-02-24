@@ -5,7 +5,7 @@ export const inputText = {
     fontWeight: 600,
     paddingVertical: 15,
     opacity: 0.5,
-    color: Colors.bg_primary,
+    color: Colors.primary_color,
     textAlign:'left',
     borderRadius: 10,
     width: '100%'

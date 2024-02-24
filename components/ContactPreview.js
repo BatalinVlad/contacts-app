@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Colors, Icons } from '../styles';
+import { Colors, Icons, ContactPreviewStyle } from '../styles';
 import { Feather } from '@expo/vector-icons';
 
 const ContactPreview = ({ contact }) => {
@@ -38,17 +38,12 @@ const ContactPreview = ({ contact }) => {
         </View>
     </Pressable>
 }
+
 export default ContactPreview
 
 const styles = StyleSheet.create({
     contactContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        alignItems: 'center',
-        borderBottomWidth: 2,
-        borderBottomColor: Colors.borderBottom
+        ...ContactPreviewStyle.contactContainer
     },
     contactText: {
         fontSize: 16,
@@ -64,11 +59,7 @@ const styles = StyleSheet.create({
         ...Icons.profileIconText
     },
     contacntData: {
-        width: '85%',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 10,
+        ...ContactPreviewStyle.contacntData
     },
     featherIcon: {
         opacity: 0.2

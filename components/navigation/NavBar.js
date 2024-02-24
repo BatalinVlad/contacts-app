@@ -21,11 +21,11 @@ const NavBar = () => {
                 component={ContactsScreen}
                 options={{
                     headerStyle: {
-                        backgroundColor: Colors.bg_primary, // Define header color for ContactsScreen
+                        backgroundColor: Colors.navbar,
                         borderBottomWidth: 0,
                         borderBottomColor: 'transparent',
                     },
-                    headerTintColor: Colors.icons, // Define header text color for ContactsScreen
+                    headerTintColor: Colors.icons, 
                     headerTitleStyle: {
                         fontSize: 15,
                         fontWeight: 'bold',
@@ -38,10 +38,10 @@ const NavBar = () => {
                 component={ContactProfileScreen}
                 options={{
                     headerStyle: {
-                        backgroundColor: Colors.icons, // Define header color for ContactProfileScreen
+                        backgroundColor: Colors.icons, 
                         borderBottomWidth: 0,
                     },
-                    headerTintColor: Colors.borderBottom, // Define header text color for ContactProfileScreen
+                    headerTintColor: Colors.borderBottom, 
                     headerTitleStyle: {
                         fontSize: 15,
                         fontWeight: 'bold',
