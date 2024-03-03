@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import ContactsList from '../components/ContactsList';
@@ -16,7 +16,6 @@ const ContactsScreen = () => {
     setData();
   }, []);
 
-
   const setData = async () => {
     try {
       const { status } = await Contacts.requestPermissionsAsync();
@@ -33,6 +32,7 @@ const ContactsScreen = () => {
         }
         return 0;
       });
+
       const clearedAndSortedData = clearContactsData(sortedContactsData)
 
       setContacts(clearedAndSortedData);
@@ -63,10 +63,10 @@ const ContactsScreen = () => {
     return [...unclearedContactsData, ...clearedContactsData];
   };
 
-  const onChangeTextHandler = (inputText) => {
+  const onChangeTextHandler = useCallback((inputText) => {
     setFilterByContactsNameValue(inputText);
     onFilterContactsByNameHandler(inputText);
-  };
+  }, [onFilterContactsByNameHandler]);
 
   const onFilterContactsByNameHandler = (val) => {
     if (val.length === 0) {

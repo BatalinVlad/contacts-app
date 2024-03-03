@@ -1,9 +1,9 @@
 import React from 'react';
-import NavBar from './components/navigation/NavBar';
+import Navigation from './components/navigation/Navigation';
 
 const App = () => {
   return (
-    <NavBar />
+    <Navigation />
   );
 };
 

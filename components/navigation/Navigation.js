@@ -7,7 +7,7 @@ import { Colors } from '../../styles';
 import BackButton from './BackButton';
 
 
-const NavBar = () => {
+const Navigation = () => {
     const Stack = createStackNavigator();
 
     const renderHeaderBackButton = () => {
@@ -54,4 +54,4 @@ const NavBar = () => {
     </NavigationContainer>
 }
 
-export default NavBar
+export default Navigation

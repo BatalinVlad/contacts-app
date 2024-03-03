@@ -14,6 +14,7 @@ const ContactProfileScreen = () => {
   }, [])
 
   const renderProfileIcon = () => {
+    console.log('rendering icon');
     if (contact && contact.imageAvailable) {
       return (
         <Image
